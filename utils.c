@@ -1,7 +1,30 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include "push_swap.h"
+
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*last_node;
+
+	if (!lst)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	last_node = ft_lstlast(*lst);
+	last_node->next = new;
+}
+
 
 char* ft_strncpy(char *s, char *s2, int len)
 {
@@ -16,7 +39,9 @@ char* ft_strncpy(char *s, char *s2, int len)
 }
 
 char    **ft_split(char *str)
+
 {
+	// for (int i = 0; str[i] ; i++)
 	char **s;
 	int i = 0;
 	int count = 0;
@@ -30,7 +55,7 @@ char    **ft_split(char *str)
 		while ( str[i] && str[i] != ' ')
 			i++;
 	}
-	s = malloc((sizeof(char *)) * count + 1);
+	s = malloc((sizeof(char *)) * (count + 1));
 	// s[count] = NULL;
 	i = 0;
 	int z = 0;
@@ -41,8 +66,10 @@ char    **ft_split(char *str)
 		a = i;
 		while ( str[i] && str[i] != ' ')
 			i++;
-		if (i > a){
-			s[z] = ft_strncpy(malloc(i - a + 1), str + a, i - a);
+		if (i > a)
+		{
+			s[z] = malloc (i - a + 1);
+			s[z] = ft_strncpy(s[z], str + a, i - a);
             z++;
 		}
 	}
