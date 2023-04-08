@@ -252,27 +252,30 @@ int	ft_atoi(char *str)
 
 int	valid(int ac, char **av, char ***l)
 {
-	*l = get_info(ac, av);
-	// for( int i = 0; l[i]; i++)
-	// 	printf("%s\n", l[i]);
-	for (int i = 0; l[i]; i++)
-		ft_atoi(*l[i]);
-	if (!Formed(*l) || !is_duplicate(*l) || !extra_check(*l))
-		return (Error(), 0);
-	
-	return (1);
+	if (ac > 1)
+	{
+		*l = get_info(ac, av);
+		// for( int i = 0; l[i]; i++)
+		// 	printf("%s\n", l[i]);
+		for (int i = 0; l[i]; i++)
+			ft_atoi(*l[i]);
+		if (!Formed(*l) || !is_duplicate(*l) || !extra_check(*l))
+			return (Error(), 0);
+		return (1);
+	}
+	return (Error(), 0);
 }
 
-t_list	*str_to_lst(char **l)
+t_stack	*str_to_lst(char **l)
 {
 	int	i;
 	int	j;
-	t_list *lst = NULL;
+	t_stack *lst = NULL;
 
 	i = 0;
 	while(l[i])
 	{
-		t_list	*new = malloc(sizeof(t_list));
+		t_stack	*new = malloc(sizeof(t_stack));
 		new->next = NULL;
 		new->num = ft_atoi(l[i]);
 		ft_lstadd_back(&lst, new);
@@ -282,30 +285,72 @@ t_list	*str_to_lst(char **l)
 	return (lst);
 }
 
-
-
-void	sort(t_list *list, int i)
+int	ft_lstsize(t_stack *lst)
 {
-	if (i == 3)
+	int	i;
+
+	i = 0;
+	// if (!lst)
+	// 	return (0);
+	while (lst)
 	{
-		
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
+void ft_swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void sort_three(t_stack *a)
+{
+
+}
+
+void	sort(t_stack *a, int size)
+{
+	if (size <= 5)
+	{
+		if (size <= 3)
+		{
+			if (size == 2)
+			{
+				if (a->num > a->next->num)
+					ft_swap(&a->num, &a->next->num);
+			}
+			else if (size == 3)
+				sort_three(a);
+		}
 	}
 
 }
 
 int main(int ac, char **av)
 {
-	int	i;
-	char **l;
-	valid(ac, av, &l);
+	int		size;
+	char	**l;
+	t_stack *a;
+	t_stack	*b = NULL;
 
-	t_list *stack_a = str_to_lst(l);
-	i = 0;
-	while(stack_a != NULL)
-	{
-		printf("%d\n", stack_a->num);
-		stack_a = stack_a->next;
-		i++;
-	}
-	sort(&stack_a, i);
+	valid(ac, av, &l);
+	a = str_to_lst(l);
+
+	// while(a != NULL)
+	// {
+	// 	printf("%d\n", a->num);
+	// 	a = a->next;
+	// 	size++;
+	// }
+	size = ft_lstsize(a);
+	
+	sort(a, size);
+
+
 }
