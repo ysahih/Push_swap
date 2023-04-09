@@ -25,7 +25,7 @@ int		ft_lstsize(t_stack *lst);
 void	ft_lstadd_front(t_stack **lst, int	num);
 
 //moves
-void	swap(t_stack **stack);
+void	swap(t_stack *stack);
 void	rotate(t_stack **stack);
 void	push(t_stack **stack_a, t_stack **stack_b);
 void	reverse_rotate(t_stack **stack);

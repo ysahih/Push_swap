@@ -15,17 +15,17 @@ void	push(t_stack **stack_a, t_stack **stack_b)
 }
 
 //Swap the first 2 elements at the top of the stack.
-void	swap(t_stack **stack)
+void	swap(t_stack *stack)
 {
 	int tmp;
-	t_stack *list;
+	// t_stack *stack;
 
-	list = *stack;
-	if(!list)
+	// stack = *stack;
+	if(!stack)
 		return ;
-	tmp = list->num;
-	list->num = list->next->num;
-	list->next->num	= tmp;
+	tmp = stack->num;
+	stack->num = stack->next->num;
+	stack->next->num = tmp;
 }
 
 //Shift up all elements of the stack by 1, The first element becomes the last one.
@@ -46,7 +46,7 @@ void	rotate(t_stack **stack)
 	list->num = tmp;
 }
 
-//Shift down all elements of the stack by 1, The last element becomes the first one.
+//Shift down all elements of the stack by 1
 void reverse_rotate(t_stack **stack)
 {
 	t_stack *list;
@@ -56,6 +56,8 @@ void reverse_rotate(t_stack **stack)
 	  	return ;
 	while (list && list ->next && list ->next->next)
 		list = list ->next;
+	
+	printf("|%d|\n", list->num);
 	ft_lstadd_front(stack , list->next->num);
 	list->next = NULL;
 

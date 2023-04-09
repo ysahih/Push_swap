@@ -309,28 +309,69 @@ void ft_swap(int *a, int *b)
 	*b = tmp;
 }
 
+int	find_max(t_stack *a)
+{
+	int	max;
+	int i = 0;
+	t_stack *lst;
+
+	lst = a;
+	max = lst->num;
+	while (lst)
+	{
+		if (max < lst->num)
+		{
+			max = lst->num;
+			i++;
+		}
+		lst = lst->next;
+	}
+	// printf("%d", i);
+	return (i);
+}
 void sort_three(t_stack *a)
 {
+	int	i;
 
-}
+	i = find_max(a);
+	if (i == 0)
+		rotate(&a);
+	else if (i == 1){
+		reverse_rotate(&a);
 
-void	sort(t_stack *a, int size)
-{
-	if (size <= 5)
-	{
-		if (size <= 3)
-		{
-			if (size == 2)
-			{
-				if (a->num > a->next->num)
-					ft_swap(&a->num, &a->next->num);
-			}
-			else if (size == 3)
-				sort_three(a);
-		}
+	// while(a != NULL)
+	// {
+	// 	printf("%d\n", a->num);
+	// 	a = a->next;
+
+	// }	
 	}
 
+	if (a->num > a->next->num)
+		swap(a);
 }
+
+// void	sort(t_stack *a, int size)
+// {
+// 	int	i;
+
+// 	if (size <= 5)
+// 	{
+// 		if (size <= 3)
+// 		{
+// 			if (size == 2)
+// 			{
+// 				if (a->num > a->next->num)
+// 					ft_swap(&a->num, &a->next->num);
+// 			}
+// 			else if (size == 3)
+// 			{
+
+// 			}
+// 		}
+// 	}
+
+// }
 
 int main(int ac, char **av)
 {
@@ -342,15 +383,17 @@ int main(int ac, char **av)
 	valid(ac, av, &l);
 	a = str_to_lst(l);
 
-	// while(a != NULL)
-	// {
-	// 	printf("%d\n", a->num);
-	// 	a = a->next;
-	// 	size++;
-	// }
 	size = ft_lstsize(a);
-	
-	sort(a, size);
+	// find_max(a);
+	sort_three(a);
 
+
+
+	while(a != NULL)
+	{
+		printf("%d\n", a->num);
+		a = a->next;
+		size++;
+	}
 
 }
