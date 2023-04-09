@@ -57,19 +57,19 @@ void sort_three(t_stack **a)
 
 	i = find_max(*a);
 	if (i == 0)
-		rotate(a);
+		rotate(a, "ra\n");
 	if (i == 1)
-		reverse_rotate(a);
+		reverse_rotate(a, "rra\n");
 	if ((*a)->num > (*a)->next->num)
-		swap(*a);	
+		swap(*a, "sa\n");	
 }
 
 void	sort_five(t_stack **a, t_stack **b)
 {
 	int	i;
-	int	count;
+	// int	count;
 
-	count = 2;
+	// count = 2;
 	if(ft_lstsize(*a) > 3)
 	{
 
@@ -78,19 +78,19 @@ void	sort_five(t_stack **a, t_stack **b)
 		{
 			while (i > 0)
 			{
-				rotate(a);
+				rotate(a, "ra\n");
 				i--;
 			}
 		}
 		else
 		{
-			while (i < 5)
+			while (i < ft_lstsize(*a))
 			{
-				reverse_rotate(a);
+				reverse_rotate(a, "rra\n");
 				i++;
 			}
 		}
-		push(a, b);
+		push(a, b, "pb\n");
 		sort_five(a, b);
 	}
 	sort_three(a);
@@ -102,7 +102,7 @@ void	sort_five(t_stack **a, t_stack **b)
 	// }
 	while (*b)
 	{
-		push(b, a);
+		push(b, a, "pa\n");
 	}
 	// while(*a)
 	// {	
@@ -123,7 +123,7 @@ void	sort(t_stack **a, t_stack **b, int size)
 			if (size == 2)
 			{
 				if ((*a)->num > (*a)->next->num)
-					swap(*a);
+					swap(*a, "sa\n");
 			}
 			else if (size == 3)
 				sort_three(a);
