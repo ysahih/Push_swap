@@ -300,14 +300,16 @@ int	ft_lstsize(t_stack *lst)
 	return (i);
 }
 
-void ft_swap(int *a, int *b)
-{
-	int	tmp;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
+
+// void ft_swap(int *a, int *b)
+// {
+// 	int	tmp;
+
+// 	tmp = *a;
+// 	*a = *b;
+// 	*b = tmp;
+// }
 
 int	find_max(t_stack *a)
 {
