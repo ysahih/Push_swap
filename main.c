@@ -1,85 +1,4 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include "push_swap.h"
-
-int	ft_strcmp(char *s1,char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && (s1[i] != '\0' || s2[i] != '\0'))
-		i++;
-	return (s1[i] - s2[i]);
-}
-
-
-
-// char* ft_strncpy(char *s, char *s2, int len)
-// {
-// 	int i = 0;
-// 	while (i < len && s2[i])
-// 	{
-// 		s[i] = s2[i];
-// 		i++;
-// 	}
-// 	s[len] = '\0';
-// 	return s;
-// }
-
-// char    **ft_split(char *str)
-// {
-// 	char **s;
-// 	int i = 0;
-// 	int count = 0;
-// 	int a = 0;
-// 	while (str[i])
-// 	{
-// 		while (str[i] && str[i] == ' ')
-// 			i++;
-// 		if (str[i])
-// 			count++;
-// 		while ( str[i] && str[i] != ' ')
-// 			i++;
-// 	}
-// 	s = malloc((sizeof(char *)) * count + 1);
-// 	i = 0;
-// 	int z = 0;
-// 	while (str[i])
-// 	{
-// 		while (str[i] && str[i] == ' ')
-// 			i++;
-// 		a = i;
-// 		while ( str[i] && str[i] != ' ')
-// 			i++;
-// 		if (i > a){
-// 			s[z] = ft_strncpy(malloc(i - a + 1), str + a, i - a);
-//             z++;
-// 		}
-// 	}
-// 	s[z] = NULL;
-// 	return (s);
-// }
-
-void ft_free(char **s)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		free (s[i]);
-	free (s);
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (i[s])
-		i++;
-	return (i);
-}
 
 char	*join_args(int ac, char **av)
 {
@@ -103,7 +22,12 @@ char	*join_args(int ac, char **av)
 	{
 		j = 0;
 		while(av[i][j])
+		{
+			// if (av[i][j] == '+')
+			// 	j++;
 			str[k++] = av[i][j++];
+		
+		}
 		if (av[i + 1])
 			str[k++] = ' ';
 		i++;
@@ -181,10 +105,8 @@ int	is_duplicate(char **l)
 		{
 			if (ft_strcmp(l[j], l[j + z + 1]) == 0)
 				return (0);	
-			// printf("z = %d\n", z);
 			z++;
 		}
-		// printf("j = %d\n", j);	
 		j++;
 	}
 	return (1);
@@ -229,7 +151,7 @@ int	ft_atoi(char *str)
 	res = 0;
 	i = 0;
 	sign = 1;
-	while (str[i] && (str[i] == 32 || (str[i] >= 9 && str[i] <= 13)))
+	while (str[i] && (str[i] == 32))
 		i++;
 	if (str[i] == '-')
 	{
@@ -250,16 +172,26 @@ int	ft_atoi(char *str)
 	return (nbr);
 }
 
-int	valid(int ac, char **av, char ***l)
+int	valid(int ac, char **av, char **l)
 {
 	if (ac > 1)
 	{
-		*l = get_info(ac, av);
+		// l = get_info(ac, av);
 		// for( int i = 0; l[i]; i++)
-		// 	printf("%s\n", l[i]);
-		for (int i = 0; l[i]; i++)
-			ft_atoi(*l[i]);
-		if (!Formed(*l) || !is_duplicate(*l) || !extra_check(*l))
+		int	i = 0;
+		ac --;
+		while (i < ac)
+		{
+			int	j = i;
+			while (++j < ac)
+			{
+				// printf("|%d||%d|\n", ft_atoi(l[i]), ft_atoi(l[j]));
+				if (ft_atoi(l[i]) == ft_atoi(l[j]))
+					return (Error(), 0);
+			}
+			i++;
+		}
+		if (!Formed(l) || !is_duplicate(l) || !extra_check(l))
 			return (Error(), 0);
 		return (1);
 	}
@@ -285,147 +217,6 @@ t_stack	*str_to_lst(char **l)
 	return (lst);
 }
 
-int	ft_lstsize(t_stack *lst)
-{
-	int	i;
-
-	i = 0;
-	// if (!lst)
-	// 	return (0);
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
-
-
-
-// void ft_swap(int *a, int *b)
-// {
-// 	int	tmp;
-
-// 	tmp = *a;
-// 	*a = *b;
-// 	*b = tmp;
-// }
-
-int	find_max(t_stack *a)
-{
-	int	max;
-	int i = 0;
-	t_stack *lst;
-
-	lst = a;
-	max = lst->num;
-	while (lst)
-	{
-		if (max < lst->num)
-			max = lst->num;
-		lst = lst->next;
-	}
-	lst = a;
-	while (lst)
-	{
-		if (max == lst->num)
-			return (i);
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
-
-int find_min(t_stack *a)
-{
-	int		min;
-	int		i;
-	t_stack	*tmp;
-
-	tmp = a;
-	min = tmp->num;
-	while (tmp)
-	{
-		if (tmp->num < min)
-			min = tmp->num;
-		tmp = tmp->next;
-	}
-	tmp = a;
-	while (tmp)
-	{
-		if (tmp->num == min)
-			return (i);
-		tmp = tmp->next;
-	}
-	return i;
-}
-void sort_three(t_stack **a)
-{
-	int	i;
-
-	i = find_max(*a);
-	if (i == 0)
-		rotate(a);
-	if (i == 1)
-		reverse_rotate(a);
-	if ((*a)->num > (*a)->next->num)
-		swap(*a);	
-}
-
-
-void	sort_five(t_stack *a, t_stack *b)
-{
-	int	i;
-	int	middle;
-
-	middle = 2;
-	while (middle)
-	{
-
-		i = find_min(a) + 1;
-		if (i <= 3)
-		{
-			while (i-- > 0)
-				rotate(&a);
-		}
-		else
-			while (i++ <= 5)
-				reverse_rotate(&a);
-		push(&a, &b);
-		middle--;
-	}
-	//bug
-	sort_three(&a);
-	//
-
-
-	while(b)
-	{
-		push(&b, &a);
-	}
-}
-
-void	sort(t_stack *a, t_stack *b, int size)
-{
-	int	i;
-
-	if (size <= 5)
-	{
-		if (size <= 3)
-		{
-			if (size == 2)
-			{
-				if (a->num > a->next->num)
-					swap(a);
-			}
-			else if (size == 3)
-				sort_three(&a);
-		}
-		if (size == 5)
-			sort_five(a, b);
-	}
-}
-
 int main(int ac, char **av)
 {
 	int		size;
@@ -433,20 +224,17 @@ int main(int ac, char **av)
 	t_stack *a;
 	t_stack	*b = NULL;
 
-	valid(ac, av, &l);
+	l = get_info(ac, av);
+	valid(ac, av, l);
 	a = str_to_lst(l);
 
 	size = ft_lstsize(a);
-	// find_max(a);
-	sort(a,b, size);
-
-	// printf("..%d\n", find_max(a));
-
+	sort(&a,&b, size);
+	
 	while(a)
 	{
 		printf("%d\n", a->num);
 		a = a->next;
-	
-	}
 
+	}
 }

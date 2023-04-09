@@ -15,8 +15,6 @@ typedef struct s_stack
 
 
 //parssing utils
-char	*ft_strncpy(char *s, char *s2, int len);
-char	**ft_split(char *str);
 
 //lst_utils
 void	ft_lstadd_back(t_stack **lst, t_stack *new);
@@ -29,5 +27,17 @@ void	swap(t_stack *stack);
 void	rotate(t_stack **stack);
 void	push(t_stack **stack_a, t_stack **stack_b);
 void	reverse_rotate(t_stack **stack);
+
+//sorting
+void	sort(t_stack **a, t_stack **b, int size);
+
+//extra utils
+char	*ft_strncpy(char *s, char *s2, int len);
+char	**ft_split(char *str);
+void ft_free(char **s);
+int	ft_strlen(char *s);
+int	ft_strcmp(char *s1,char *s2);
+
+
 
 # endif
