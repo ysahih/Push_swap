@@ -56,11 +56,7 @@ void reverse_rotate(t_stack **stack)
 	  	return ;
 	while (list && list ->next && list ->next->next)
 		list = list ->next;
-	
-	printf("|%d|\n", list->num);
 	ft_lstadd_front(stack , list->next->num);
+	free(list->next);
 	list->next = NULL;
-
-
-	
 }

@@ -322,58 +322,109 @@ int	find_max(t_stack *a)
 	while (lst)
 	{
 		if (max < lst->num)
-		{
 			max = lst->num;
-			i++;
-		}
 		lst = lst->next;
 	}
-	// printf("%d", i);
+	lst = a;
+	while (lst)
+	{
+		if (max == lst->num)
+			return (i);
+		lst = lst->next;
+		i++;
+	}
 	return (i);
 }
-void sort_three(t_stack *a)
+
+int find_min(t_stack *a)
+{
+	int		min;
+	int		i;
+	t_stack	*tmp;
+
+	tmp = a;
+	min = tmp->num;
+	while (tmp)
+	{
+		if (tmp->num < min)
+			min = tmp->num;
+		tmp = tmp->next;
+	}
+	tmp = a;
+	while (tmp)
+	{
+		if (tmp->num == min)
+			return (i);
+		tmp = tmp->next;
+	}
+	return i;
+}
+void sort_three(t_stack **a)
 {
 	int	i;
 
-	i = find_max(a);
+	i = find_max(*a);
 	if (i == 0)
-		rotate(&a);
-	else if (i == 1){
-		reverse_rotate(&a);
-
-	// while(a != NULL)
-	// {
-	// 	printf("%d\n", a->num);
-	// 	a = a->next;
-
-	// }	
-	}
-
-	if (a->num > a->next->num)
-		swap(a);
+		rotate(a);
+	if (i == 1)
+		reverse_rotate(a);
+	if ((*a)->num > (*a)->next->num)
+		swap(*a);	
 }
 
-// void	sort(t_stack *a, int size)
-// {
-// 	int	i;
 
-// 	if (size <= 5)
-// 	{
-// 		if (size <= 3)
-// 		{
-// 			if (size == 2)
-// 			{
-// 				if (a->num > a->next->num)
-// 					ft_swap(&a->num, &a->next->num);
-// 			}
-// 			else if (size == 3)
-// 			{
+void	sort_five(t_stack *a, t_stack *b)
+{
+	int	i;
+	int	middle;
 
-// 			}
-// 		}
-// 	}
+	middle = 2;
+	while (middle)
+	{
 
-// }
+		i = find_min(a) + 1;
+		if (i <= 3)
+		{
+			while (i-- > 0)
+				rotate(&a);
+		}
+		else
+			while (i++ <= 5)
+				reverse_rotate(&a);
+		push(&a, &b);
+		middle--;
+	}
+	//bug
+	sort_three(&a);
+	//
+
+
+	while(b)
+	{
+		push(&b, &a);
+	}
+}
+
+void	sort(t_stack *a, t_stack *b, int size)
+{
+	int	i;
+
+	if (size <= 5)
+	{
+		if (size <= 3)
+		{
+			if (size == 2)
+			{
+				if (a->num > a->next->num)
+					swap(a);
+			}
+			else if (size == 3)
+				sort_three(&a);
+		}
+		if (size == 5)
+			sort_five(a, b);
+	}
+}
 
 int main(int ac, char **av)
 {
@@ -387,15 +438,15 @@ int main(int ac, char **av)
 
 	size = ft_lstsize(a);
 	// find_max(a);
-	sort_three(a);
+	sort(a,b, size);
 
+	// printf("..%d\n", find_max(a));
 
-
-	while(a != NULL)
+	while(a)
 	{
 		printf("%d\n", a->num);
 		a = a->next;
-		size++;
+	
 	}
 
 }
