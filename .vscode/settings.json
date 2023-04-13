@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "__bit_reference": "c",
-        "memory": "c",
-        "utility": "c",
-        "algorithm": "c"
-    }
-}
