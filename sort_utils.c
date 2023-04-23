@@ -95,34 +95,58 @@ void	sort_five(t_stack **a, t_stack **b)
 		push(b, a, "pa\n");
 }
 
-void	ft_chunk(t_stack **a, t_stack **b, int size)
+void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 {
+	t_stack	*tmp1;
+	// t_stack	*tmp2;
+
+	
+}
+
+void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
+{
+	int	start;
+	int	end;
 	int	i;
 
-	while(*a)
+	i = 1;
+	start = 0;
+	while (i <= x)
 	{
-		i = find_min(*a);
-		if (i < (size / 2))
+		if (i == x)
 		{
-			while (i--)
-				rotate(a, "ra\n");
+			end = size;
+			sort_chunk(a, b, start, end);
 		}
-		else 
+		else
 		{
-			while (i++ < ft_lstsize(*a))
-				reverse_rotate(a, "rra\n");
+			end = (size / x) * i - 1;
+			sort_chunk(a, b, start, end);
+			// printf("start : %d,end : %d\n", start, end);
+			start = ++end;
 		}
-		push(a, b, "pb\n");
+		i++;
 	}
-	
-	while (*b)
-		push(b, a, "pa\n");
-	
-	// while (*a)
+	// int	i;
+
+	// while(*a)
 	// {
-	// 	printf("%d\n", (*b)->num);
-	// 	(*a) = (*b)->next;
+	// 	i = find_min(*a);
+	// 	if (i < (size / 2))
+	// 	{
+	// 		while (i--)
+	// 			rotate(a, "ra\n");
+	// 	}
+	// 	else 
+	// 	{
+	// 		while (i++ < ft_lstsize(*a))
+	// 			reverse_rotate(a, "rra\n");
+	// 	}
+	// 	push(a, b, "pb\n");
 	// }
+	
+	// while (*b)
+	// 	push(b, a, "pa\n");
 }
 
 
@@ -150,5 +174,5 @@ void	sort(t_stack **a, t_stack **b, int size)
 		sort_five(a, b);
 	}
 	else
-		ft_chunk(a, b, size);
+		ft_chunk(a, b, 5, size);
 }

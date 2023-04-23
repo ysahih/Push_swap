@@ -210,7 +210,7 @@ void	init_index(t_stack **lst)
 	i = 0;
 	tmp = *lst;
 	while (tmp)
-	{	
+	{
 		a = i;
 		tmp2 = *lst;
 		while (tmp2 && a--)
@@ -229,17 +229,18 @@ void	init_index(t_stack **lst)
 
 t_stack	*str_to_lst(char **l)
 {
-	int	i;
-	int	j;
-	t_stack *lst = NULL;
+	int		i;
+	int		j;
+	t_stack *lst;
 
+	lst = NULL;
 	i = 0;
 	while(l[i])
 	{
 		t_stack	*new = malloc(sizeof(t_stack));
 		new->next = NULL;
-		new->num = ft_atoi(l[i]);
 		new->index = 0;
+		new->num = ft_atoi(l[i]);
 		ft_lstadd_back(&lst, new);
 		i++;
 	}
@@ -260,12 +261,12 @@ int	main(int ac, char **av)
 	a = str_to_lst(l);
 
 	size = ft_lstsize(a);
-	// sort(&a,&b, size);
+	sort(&a,&b, size);
 	
-	while(a)
-	{
-		printf("%d\n", a->index);
-		a = a->next;
+	// while(a)
+	// {
+	// 	printf("%d\n", a->index);
+	// 	a = a->next;
 
-	}
+	// }
 }
