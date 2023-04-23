@@ -100,7 +100,7 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 	t_stack	*tmp1;
 	// t_stack	*tmp2;
 
-	
+
 }
 
 void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
@@ -128,6 +128,7 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 		i++;
 	}
 	// int	i;
+
 
 	// while(*a)
 	// {
