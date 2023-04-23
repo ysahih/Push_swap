@@ -67,12 +67,9 @@ void sort_three(t_stack **a)
 void	sort_five(t_stack **a, t_stack **b)
 {
 	int	i;
-	// int	count;
 
-	// count = 2;
-	if(ft_lstsize(*a) > 3)
+	if (ft_lstsize(*a) > 3)
 	{
-
 		i = find_min(*a);
 		if (i < 3)
 		{
@@ -94,24 +91,42 @@ void	sort_five(t_stack **a, t_stack **b)
 		sort_five(a, b);
 	}
 	sort_three(a);
- 	// while(*a)
-	// {	
-	// 	printf("%d\n", (*a)->num);
-	// 	*a = (*a)->next;
-
-	// }
 	while (*b)
-	{
 		push(b, a, "pa\n");
-	}
-	// while(*a)
-	// {	
-	// 	printf("%d\n", (*a)->num);
-	// 	*a = (*a)->next;
-
-	// }
-	
 }
+
+void	ft_chunk(t_stack **a, t_stack **b, int size)
+{
+	int	i;
+
+	while(*a)
+	{
+		i = find_min(*a);
+		if (i < (size / 2))
+		{
+			while (i--)
+				rotate(a, "ra\n");
+		}
+		else 
+		{
+			while (i++ < ft_lstsize(*a))
+				reverse_rotate(a, "rra\n");
+		}
+		push(a, b, "pb\n");
+	}
+	
+	while (*b)
+		push(b, a, "pa\n");
+	
+	// while (*a)
+	// {
+	// 	printf("%d\n", (*b)->num);
+	// 	(*a) = (*b)->next;
+	// }
+}
+
+
+
 void	sort(t_stack **a, t_stack **b, int size)
 {
 	int	i;
@@ -120,14 +135,20 @@ void	sort(t_stack **a, t_stack **b, int size)
 	{
 		if (size <= 3)
 		{
-			if (size == 2)
+			if (size == 1)
+				return ;
+			else if (size == 2)
 			{
 				if ((*a)->num > (*a)->next->num)
 					swap(*a, "sa\n");
+				else
+					return ;
 			}
 			else if (size == 3)
 				sort_three(a);
 		}
 		sort_five(a, b);
 	}
+	else
+		ft_chunk(a, b, size);
 }

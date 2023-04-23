@@ -198,6 +198,35 @@ int	valid(int ac, char **av, char **l)
 	return (Error(), 0);
 }
 
+void	init_index(t_stack **lst)
+{
+	t_stack	*tmp;
+	t_stack	*tmp2;
+	int		i;
+	int		a;
+
+	if (!*lst || !lst)
+		return ;
+	i = 0;
+	tmp = *lst;
+	while (tmp)
+	{	
+		a = i;
+		tmp2 = *lst;
+		while (tmp2 && a--)
+		{
+			if (tmp2->num > tmp->num)
+				tmp2->index++;
+			else
+				tmp->index++;
+			tmp2 = tmp2->next;
+		}
+		i++;
+		tmp = tmp->next;
+	}
+
+}
+
 t_stack	*str_to_lst(char **l)
 {
 	int	i;
@@ -210,14 +239,16 @@ t_stack	*str_to_lst(char **l)
 		t_stack	*new = malloc(sizeof(t_stack));
 		new->next = NULL;
 		new->num = ft_atoi(l[i]);
+		new->index = 0;
 		ft_lstadd_back(&lst, new);
 		i++;
 	}
+	init_index(&lst);
 	ft_free (l);
 	return (lst);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	int		size;
 	char	**l;
@@ -229,11 +260,11 @@ int main(int ac, char **av)
 	a = str_to_lst(l);
 
 	size = ft_lstsize(a);
-	sort(&a,&b, size);
+	// sort(&a,&b, size);
 	
 	while(a)
 	{
-		printf("%d\n", a->num);
+		printf("%d\n", a->index);
 		a = a->next;
 
 	}

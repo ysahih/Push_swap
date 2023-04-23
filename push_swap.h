@@ -7,6 +7,7 @@
 
 typedef struct s_stack
 {
+	int				index;
 	int				num;
 	struct s_stack	*next;
 }	t_stack;
