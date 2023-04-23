@@ -95,12 +95,88 @@ void	sort_five(t_stack **a, t_stack **b)
 		push(b, a, "pa\n");
 }
 
+// int	init_hold_butt(t_stack *a, int start, int end)
+// {
+// 	// int		hold_top;
+// 	// int		hold_butt;
+// 	int		i;
+// 	t_stack	*tmp;
+
+// 	tmp = a;
+// 	i = 0;
+// 	while (tmp)
+// 	{
+// 		if (tmp->index >= start && tmp->index <= end)
+// 			return (i);
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// 	return (0);
+// }
+
+
+// int	init_hold_top(t_stack *a, int start, int end)
+// {
+// 	// int		hold_top;
+// 	// int		hold_butt;
+// 	int		i;
+// 	t_stack	*tmp;
+
+// 	tmp = a;
+// 	i = 0;
+// 	while (tmp)
+// 	{
+// 		if (tmp->index >= start && tmp->index <= end)
+// 			return (i);
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// 	return (0);
+// }
+
 void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 {
-	t_stack	*tmp1;
-	// t_stack	*tmp2;
+	// t_stack	*a;
+	int		mid;
+	int		count;
 
+	// a = *a;
+	count = 0;
+	mid = ((end - start + 1) / 2 ) + start;
+	// printf ("%d\n", mid);
+	while (*a)
+	{
+		// printf (" %d\n", count);
+		if (count == end - start)
+			break ;
+		if ((*a)->index < start || (*a)->index > end){
+			rotate(a, "ra\n");
+			// (*a) = (*a)->next;	
+			// continue ;
+		}
+		else
+		{
+			if (*b)
+			{
+				if ((*a)->index < mid){
+					push(a, b, "pb\n");
+					count++;
+				}
+				else{
+					push(a, b, "pb\n");
+					rotate(b, "rb\n");
+					count++;
+				}
+			}
+			else{
+				push(a, b, "pb\n");
+				count++;
+			}
 
+		}
+
+		(*a) = (*a)->next;
+	}
 }
 
 void	ft_chunk(t_stack **a, t_stack **b, int x, int size)

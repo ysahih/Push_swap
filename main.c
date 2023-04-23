@@ -269,4 +269,9 @@ int	main(int ac, char **av)
 	// 	a = a->next;
 
 	// }
+	// while (b)
+	// {
+	// 	printf("%d\n", b->index);
+	// 	b = b->next;	
+	// }
 }
