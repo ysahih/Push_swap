@@ -22,7 +22,7 @@ typedef struct s_stack
 void	ft_lstadd_back(t_stack **lst, t_stack *new);
 t_stack	*ft_lstlast(t_stack *lst);
 int		ft_lstsize(t_stack *lst);
-void	ft_lstadd_front(t_stack **lst, int	num);
+void	ft_lstadd_front(t_stack **lst, int	num, int i);
 
 //moves
 void	swap(t_stack *stack, char *s);

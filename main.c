@@ -215,8 +215,10 @@ void	init_index(t_stack **lst)
 		tmp2 = *lst;
 		while (tmp2 && a--)
 		{
-			if (tmp2->num > tmp->num)
+			if (tmp2->num > tmp->num){
 				tmp2->index++;
+				// tmp->index++;
+			}
 			else
 				tmp->index++;
 			tmp2 = tmp2->next;
@@ -249,29 +251,45 @@ t_stack	*str_to_lst(char **l)
 	return (lst);
 }
 
-int	main(int ac, char **av)
+t_stack	*collect_nbrs(int ac, int *size, char **av)
 {
-	int		size;
 	char	**l;
 	t_stack *a;
-	t_stack	*b = NULL;
 
 	l = get_info(ac, av);
 	valid(ac, av, l);
 	a = str_to_lst(l);
+	*size = ft_lstsize(a);
+	return (a);
+}
 
-	size = ft_lstsize(a);
+int	main(int ac, char **av)
+{
+	int		size;
+	t_stack *a;
+	t_stack	*b;
+
+	b = NULL;
+	a = collect_nbrs(ac, &size, av);
 	sort(&a,&b, size);
 	
-	// while(a)
-	// {
-	// 	printf("%d\n", a->index);
-	// 	a = a->next;
+	t_stack *tmp = a;
+	while(tmp)
+	{
+		printf("%d\n", tmp->num);
+		tmp = tmp->next;
 
-	// }
+	}
+	puts("\n");
+	while(a)
+	{
+		printf("%d\n", a->index);
+		a = a->next;
+
+	}
 	// while (b)
 	// {
-	// 	printf("%d\n", b->index);
+	// 	printf("%d\n", b->num);
 	// 	b = b->next;	
 	// }
 }

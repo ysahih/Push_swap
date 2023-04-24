@@ -61,7 +61,9 @@ void sort_three(t_stack **a)
 	if (i == 1)
 		reverse_rotate(a, "rra\n");
 	if ((*a)->num > (*a)->next->num)
-		swap(*a, "sa\n");	
+		swap(*a, "sa\n");
+	else
+		return ;	
 }
 
 void	sort_five(t_stack **a, t_stack **b)
@@ -226,7 +228,19 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 	// 	push(b, a, "pa\n");
 }
 
+int	sorted(t_stack *a)
+{
+	t_stack	*tmp;
 
+	tmp = a;
+	while (tmp->next)
+	{
+		if (tmp->num > tmp->next->num)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 void	sort(t_stack **a, t_stack **b, int size)
 {
@@ -248,7 +262,8 @@ void	sort(t_stack **a, t_stack **b, int size)
 			else if (size == 3)
 				sort_three(a);
 		}
-		sort_five(a, b);
+		if (!sorted(*a))
+			sort_five(a, b);
 	}
 	else
 		ft_chunk(a, b, 5, size);

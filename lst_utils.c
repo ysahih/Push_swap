@@ -24,7 +24,7 @@ t_stack	*ft_lstlast(t_stack *lst)
 	return (lst);
 }
 
-t_stack	*ft_lstnew(int num)
+t_stack	*ft_lstnew(int num, int i)
 {
 	t_stack	*new;
 
@@ -32,16 +32,17 @@ t_stack	*ft_lstnew(int num)
 	if (!new)
 		return (0);
 	new->num = num;
+	new->index = i;
 	new->next = NULL;
 	return (new);
 }
-void	ft_lstadd_front(t_stack **lst, int	num)
+void	ft_lstadd_front(t_stack **lst, int	num, int i)
 {
 	t_stack	*new;
 
 	if (!lst)
 		return ;
-	new = ft_lstnew(num);
+	new = ft_lstnew(num, i);
 	new->next = *lst;
 	*lst = new;
 }

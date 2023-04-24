@@ -8,9 +8,8 @@ void	push(t_stack **stack_a, t_stack **stack_b, char *s)
 
 	if (!stack_a)
 	  	return ;
-	ft_lstadd_front(stack_b, (*stack_a)->num);
+	ft_lstadd_front(stack_b, (*stack_a)->num, (*stack_a)->index);
 	tmp = (*stack_a)->next;
-	
 	*stack_a = tmp;
 	write(1, s, 3);
 }
@@ -19,14 +18,18 @@ void	push(t_stack **stack_a, t_stack **stack_b, char *s)
 void	swap(t_stack *stack, char *s)
 {
 	int tmp;
+	int i;
 	// t_stack *stack;
 
 	// stack = *stack;
 	if(!stack)
 		return ;
 	tmp = stack->num;
+	i = stack->index;
 	stack->num = stack->next->num;
+	stack->index = stack->next->index;
 	stack->next->num = tmp;
+	stack->next->index = i;
 
 	write(1, s, 3);
 }
@@ -34,19 +37,23 @@ void	swap(t_stack *stack, char *s)
 //Shift up all elements of the stack by 1, The first element becomes the last one.
 void	rotate(t_stack **stack, char *s)
 {
-	int	tmp;
+	int		tmp;
+	int		i;
 	t_stack *list;
 
 	list = *stack;
 	tmp = list->num;
+	i = list->index;
 	if(!list)
 		return ;
 	while (list && list->next)
 	{
 		list->num = list->next->num;
+		list->index = list->next->index;
 		list = list->next;
 	}
 	list->num = tmp;
+	list->index = i;
 	write(1, s, 3);
 }
 
@@ -60,7 +67,7 @@ void reverse_rotate(t_stack **stack, char *s)
 	  	return ;
 	while (list && list ->next && list ->next->next)
 		list = list ->next;
-	ft_lstadd_front(stack , list->next->num);
+	ft_lstadd_front(stack , list->next->num, list->next->index);
 	free(list->next);
 	list->next = NULL;
 	write(1, s, 4);
