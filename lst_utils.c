@@ -36,7 +36,8 @@ t_stack	*ft_lstnew(int num, int i)
 	new->next = NULL;
 	return (new);
 }
-void	ft_lstadd_front(t_stack **lst, int	num, int i)
+
+void	ft_lstadd_front(t_stack **lst, int num, int i)
 {
 	t_stack	*new;
 

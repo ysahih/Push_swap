@@ -273,23 +273,23 @@ int	main(int ac, char **av)
 	a = collect_nbrs(ac, &size, av);
 	sort(&a,&b, size);
 	
-	t_stack *tmp = a;
-	while(tmp)
-	{
-		printf("%d\n", tmp->num);
-		tmp = tmp->next;
+	// t_stack *tmp = a;
+	// while(tmp)
+	// {
+	// 	printf("%d\n", tmp->num);
+	// 	tmp = tmp->next;
 
-	}
-	puts("\n");
+	// }
 	while(a)
 	{
-		printf("%d\n", a->index);
+		printf("%d\n", a->num);
 		a = a->next;
 
 	}
-	// while (b)
-	// {
-	// 	printf("%d\n", b->num);
-	// 	b = b->next;	
-	// }
+	puts("\n");
+	while (b)
+	{
+		printf("%d\n", b->num);
+		b = b->next;	
+	}
 }
