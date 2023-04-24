@@ -97,94 +97,36 @@ void	sort_five(t_stack **a, t_stack **b)
 		push(b, a, "pa\n");
 }
 
-// int	init_hold_butt(t_stack *a, int start, int end)
-// {
-// 	// int		hold_top;
-// 	// int		hold_butt;
-// 	int		i;
-// 	t_stack	*tmp;
-
-// 	tmp = a;
-// 	i = 0;
-// 	while (tmp)
-// 	{
-// 		if (tmp->index >= start && tmp->index <= end)
-// 			return (i);
-// 		i++;
-// 		tmp = tmp->next;
-// 	}
-// 	return (0);
-// }
-
-
-// int	init_hold_top(t_stack *a, int start, int end)
-// {
-// 	// int		hold_top;
-// 	// int		hold_butt;
-// 	int		i;
-// 	t_stack	*tmp;
-
-// 	tmp = a;
-// 	i = 0;
-// 	while (tmp)
-// 	{
-// 		if (tmp->index >= start && tmp->index <= end)
-// 			return (i);
-// 		i++;
-// 		tmp = tmp->next;
-// 	}
-// 	return (0);
-// }
-
 void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 {
-	// t_stack	*a;
 	int		mid;
 	int		count;
 
-	// a = *a;
 	count = start;
 	mid = ((end - start + 1) / 2 ) + start;
-	// printf (" mid is %d\n", mid);
 	while (count <= end)
 	{
-		// printf (" %d\n", count);
-		// if (count == end - start)
-		// 	break ;
 		if (*a)
 		{
-			while ((*a)->index < start || (*a)->index > end){
+			while ((*a)->index < start || (*a)->index > end)
 				rotate(a, "ra\n");
-				// (*a) = (*a)->next;	
-				// continue ;
-			}
-
 			if ((*a)->index >= start || (*a)->index <= end)
 			{
 				if (!*b)
-				{
 					push(a, b, "pb\n");
-					puts("here");
-					// count++;
-				}
 				else
 				{
-					if ((*a)->index < mid){
+					if ((*a)->index < mid)
 						push(a, b, "pb\n");
-						// count++;
-						puts("here1");
-					}
-					else{
+					else
+					{
 						push(a, b, "pb\n");
 						rotate(b, "rb\n");
-						// count++;
-						puts("here2");
 					}
 				}
 			}
 		}
 			count++;
-		// (*a) = (*a)->next;
 	}
 }
 
@@ -201,7 +143,6 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 		if (i == x)
 		{
 			end = size;
-			// printf("last	start : %d,end : %d\n", start, end);
 			sort_chunk(a, b, start, end);
 			return ;
 		}
@@ -209,32 +150,10 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 		{
 			end = (size / x) * i - 1;
 			sort_chunk(a, b, start, end);
-			// printf("start : %d,end : %d\n", start, end);
 			start = ++end;
 		}
 		i++;
 	}
-	// int	i;
-
-
-	// while(*a)
-	// {
-	// 	i = find_min(*a);
-	// 	if (i < (size / 2))
-	// 	{
-	// 		while (i--)
-	// 			rotate(a, "ra\n");
-	// 	}
-	// 	else 
-	// 	{
-	// 		while (i++ < ft_lstsize(*a))
-	// 			reverse_rotate(a, "rra\n");
-	// 	}
-	// 	push(a, b, "pb\n");
-	// }
-	
-	// while (*b)
-	// 	push(b, a, "pa\n");
 }
 
 int	sorted(t_stack *a)

@@ -36,9 +36,9 @@ void	sort(t_stack **a, t_stack **b, int size);
 //extra utils
 char	*ft_strncpy(char *s, char *s2, int len);
 char	**ft_split(char *str);
-void ft_free(char **s);
-int	ft_strlen(char *s);
-int	ft_strcmp(char *s1,char *s2);
+void	ft_free(char **s);
+int		ft_strlen(char *s);
+int		ft_strcmp(char *s1,char *s2);
 
 
 

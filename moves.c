@@ -6,7 +6,7 @@ void	push(t_stack **stack_a, t_stack **stack_b, char *s)
 {
 	t_stack	*tmp;
 
-	if (!stack_a)
+	if (!stack_a || !*stack_a)
 	  	return ;
 	ft_lstadd_front(stack_b, (*stack_a)->num, (*stack_a)->index);
 	tmp = (*stack_a)->next;
@@ -30,7 +30,7 @@ void	swap(t_stack *stack, char *s)
 	stack->index = stack->next->index;
 	stack->next->num = tmp;
 	stack->next->index = i;
-
+ 
 	write(1, s, 3);
 }
 
@@ -42,10 +42,10 @@ void	rotate(t_stack **stack, char *s)
 	t_stack *list;
 
 	list = *stack;
+	if (!list)
+		return ;
 	tmp = list->num;
 	i = list->index;
-	if(!list)
-		return ;
 	while (list && list->next)
 	{
 		list->num = list->next->num;
@@ -57,7 +57,7 @@ void	rotate(t_stack **stack, char *s)
 	write(1, s, 3);
 }
 
-//Shift down all elements of the stack by 1
+//Shift down all elements of the stack by 1, the last element 
 void reverse_rotate(t_stack **stack, char *s)
 {
 	t_stack *list;

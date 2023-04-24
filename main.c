@@ -1,5 +1,19 @@
 #include "push_swap.h"
 
+int	calculate_size(int ac, char **av)
+{
+	int	size;
+	int	i;
+
+	size = 0;
+	i = 1;
+	while (i < ac)
+	{
+		size += ft_strlen(av[i++]);
+		size++;
+	}
+	return (size);
+}
 char	*join_args(int ac, char **av)
 {
 	int		i;
@@ -7,27 +21,14 @@ char	*join_args(int ac, char **av)
 	int		j;
 	char	*str;
 
-	i = 1;
-	k = 0;
-
-	while (i < ac)
-	{
-		k += ft_strlen(av[i++]);
-		k++;
-	}
-	str = malloc(k + 1);
+	str = malloc(calculate_size(ac, av));
 	i = 1;
 	k = 0;
 	while (i < ac)
 	{
 		j = 0;
 		while(av[i][j])
-		{
-			// if (av[i][j] == '+')
-			// 	j++;
 			str[k++] = av[i][j++];
-		
-		}
 		if (av[i + 1])
 			str[k++] = ' ';
 		i++;
@@ -35,9 +36,10 @@ char	*join_args(int ac, char **av)
 	str[k] = 0x0;
 	return (str);
 }
+
 void	Error()
 {
-	printf("Error!\n");
+	printf("Error\n");
 	exit (0);
 }
 
@@ -118,6 +120,8 @@ int	no_empty_args(int ac, char **av)
 	int	i;
 
 	i = 1;
+	if (ac == 1)
+		exit (0);
 	while (i < ac)
 		if (!ft_strlen(av[i++]))
 			return(Error(), 0);
@@ -130,15 +134,11 @@ char **get_info(int ac, char **av)
 	char **l;
 	
 	no_empty_args(ac, av);
-
 	str = join_args(ac, av);
-	// for(int i = 0; str[i]; i++)
-	// printf("%c", str[i]);
 	Digit(str);
 	l = ft_split(str);
 	free(str);
 	return (l);
-
 }
 
 int	ft_atoi(char *str)
@@ -146,7 +146,6 @@ int	ft_atoi(char *str)
 	int			i;
 	int			sign;
 	long long	res;
-	long long	nbr;
 
 	res = 0;
 	i = 0;
@@ -161,34 +160,25 @@ int	ft_atoi(char *str)
 	else if (str[i] == '+')
 		i++;
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10;
-		res = res + str[i] - '0';
-		i++;
-	}
-	nbr = res * sign;
-	if (nbr < INT32_MIN || nbr > INT32_MAX)
+		res = res * 10 + str[i++] - '0';
+	res *= sign;
+	if (res < INT32_MIN || res > INT32_MAX)
 		return (Error(), 0);
-	return (nbr);
+	return (res);
 }
 
-int	valid(int ac, char **av, char **l)
+int	valid_ellements(int ac, char **av, char **l)
 {
 	if (ac > 1)
 	{
-		// l = get_info(ac, av);
-		// for( int i = 0; l[i]; i++)
 		int	i = 0;
 		ac --;
 		while (i < ac)
 		{
 			int	j = i;
 			while (++j < ac)
-			{
-				// printf("|%d||%d|\n", ft_atoi(l[i]), ft_atoi(l[j]));
 				if (ft_atoi(l[i]) == ft_atoi(l[j]))
 					return (Error(), 0);
-			}
 			i++;
 		}
 		if (!Formed(l) || !is_duplicate(l) || !extra_check(l))
@@ -198,15 +188,13 @@ int	valid(int ac, char **av, char **l)
 	return (Error(), 0);
 }
 
-void	init_index(t_stack **lst)
+void	set_index(t_stack **lst)
 {
 	t_stack	*tmp;
 	t_stack	*tmp2;
 	int		i;
 	int		a;
 
-	if (!*lst || !lst)
-		return ;
 	i = 0;
 	tmp = *lst;
 	while (tmp)
@@ -215,10 +203,8 @@ void	init_index(t_stack **lst)
 		tmp2 = *lst;
 		while (tmp2 && a--)
 		{
-			if (tmp2->num > tmp->num){
+			if (tmp2->num > tmp->num)
 				tmp2->index++;
-				// tmp->index++;
-			}
 			else
 				tmp->index++;
 			tmp2 = tmp2->next;
@@ -226,39 +212,42 @@ void	init_index(t_stack **lst)
 		i++;
 		tmp = tmp->next;
 	}
-
 }
 
 t_stack	*str_to_lst(char **l)
 {
+	t_stack *lst;
 	int		i;
 	int		j;
-	t_stack *lst;
 
 	lst = NULL;
 	i = 0;
 	while(l[i])
 	{
 		t_stack	*new = malloc(sizeof(t_stack));
+			if (!new)
+				return (0);
 		new->next = NULL;
 		new->index = 0;
 		new->num = ft_atoi(l[i]);
 		ft_lstadd_back(&lst, new);
 		i++;
 	}
-	init_index(&lst);
+	set_index(&lst);
 	ft_free (l);
 	return (lst);
 }
 
-t_stack	*collect_nbrs(int ac, int *size, char **av)
+t_stack	*store_up(int ac, int *size, char **av)
 {
 	char	**l;
 	t_stack *a;
 
 	l = get_info(ac, av);
-	valid(ac, av, l);
+	valid_ellements(ac, av, l);
 	a = str_to_lst(l);
+	if (!a)
+		return (0);
 	*size = ft_lstsize(a);
 	return (a);
 }
@@ -270,7 +259,7 @@ int	main(int ac, char **av)
 	t_stack	*b;
 
 	b = NULL;
-	a = collect_nbrs(ac, &size, av);
+	a = store_up(ac, &size, av);
 	sort(&a,&b, size);
 	
 	// t_stack *tmp = a;
