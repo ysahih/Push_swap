@@ -108,6 +108,7 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 	{
 		if (*a)
 		{
+			// if ((*a))
 			while ((*a)->index < start || (*a)->index > end)
 				rotate(a, "ra\n");
 			if ((*a)->index >= start || (*a)->index <= end)
@@ -170,6 +171,64 @@ int	sorted(t_stack *a)
 	return (1);
 }
 
+int	find_before_max(t_stack *b)
+{
+	t_stack	*tmp;
+	int		before_max;
+	int		i;
+
+	tmp = b;
+	before_max = tmp->index;
+	while (tmp)
+	{
+		if (before_max < tmp->index)
+			before_max = tmp->index;
+		tmp = tmp->next;
+	}
+	tmp = b;
+	i = 0;
+	before_max--;
+	while (tmp)
+	{
+		if (before_max == tmp->index)
+			return (i);
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
+// int	is_less_instractions(t_stack *b)
+// {
+	
+// }
+
+void	push_back(t_stack **b, t_stack **a)
+{
+	int	max;
+	// int	before_max;
+	// int	i;
+
+	while (*b)
+	{
+		max = find_max(*b);
+		// before_max = find_before_max(*b);
+		// i = ft_lstsize(*b);
+		// printf("max :%d, b max : %d\n", max, before_max);
+		if (max > ft_lstsize(*b) / 2)
+		{
+			while (max++ < ft_lstsize(*b))
+				reverse_rotate(b, "rrb\n");
+		}
+		else
+		{
+			while (max--)
+				rotate(b, "rb\n");
+		}
+		push(b, a, "pb\n");
+	}
+}
+
 void	sort(t_stack **a, t_stack **b, int size)
 {
 	int	i;
@@ -194,5 +253,11 @@ void	sort(t_stack **a, t_stack **b, int size)
 			sort_five(a, b);
 	}
 	else
-		ft_chunk(a, b, 5, size);
+	{
+		if (!sorted(*a))
+		{
+			ft_chunk(a, b, 5, size);
+			push_back(b, a);
+		}
+	}
 }

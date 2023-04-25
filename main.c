@@ -262,6 +262,7 @@ int	main(int ac, char **av)
 	a = store_up(ac, &size, av);
 	sort(&a,&b, size);
 	
+	
 	// t_stack *tmp = a;
 	// while(tmp)
 	// {
@@ -275,10 +276,10 @@ int	main(int ac, char **av)
 		a = a->next;
 
 	}
-	puts("\n");
-	while (b)
-	{
-		printf("%d\n", b->num);
-		b = b->next;	
-	}
+	// // puts("\n");
+	// while (b)
+	// {
+	// 	printf("%d\n", b->num);
+	// 	b = b->next;	
+	// }
 }

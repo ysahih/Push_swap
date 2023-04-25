@@ -57,7 +57,7 @@ void	rotate(t_stack **stack, char *s)
 	write(1, s, 3);
 }
 
-//Shift down all elements of the stack by 1, the last element 
+//Shift down all elements of the stack by 1, the last element becomes the First.
 void reverse_rotate(t_stack **stack, char *s)
 {
 	t_stack *list;
