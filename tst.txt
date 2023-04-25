@@ -1,0 +1,86 @@
+pb
+pb
+rb
+pb
+pb
+rb
+pb
+pb
+rb
+pb
+rb
+pb
+pb
+pb
+pb
+rb
+pb
+rb
+rrb
+pa
+pa
+pa
+sa
+pa
+pa
+sa
+pa
+pa
+sa
+pa
+pa
+sa
+pa
+pa
+sa
+pa
+end : 1, start : 0
+end : 3, start : 2
+end : 5, start : 4
+end : 7, start : 6
+end : 11, start : 8
+pushing back 
+
+9
+8
+6
+4
+2
+0
+1
+3
+5
+7
+10
+11
+max |11|, be max |10|
+|i = 11||j = 6|
+max |10|, be max |0|
+|i = 0||j = 5|
+|i = 10||j = 5|
+max |8|, be max |9|
+|i = 9||j = 4|
+|i = 8||j = 4|
+max |6|, be max |7|
+|i = 7||j = 3|
+|i = 6||j = 3|
+max |4|, be max |5|
+|i = 5||j = 2|
+|i = 4||j = 2|
+max |2|, be max |3|
+|i = 3||j = 1|
+|i = 2||j = 1|
+max |0|, be max |1|
+|i = 0||j = 0|
+10
+5
+7
+1
+3
+2
+0
+6
+4
+9
+8
+11

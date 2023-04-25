@@ -102,7 +102,7 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 	int		mid;
 	int		count;
 
-			// printf("end : %d, start : %d\n", end ,  start);
+		printf("end : %d, start : %d\n", end ,  start);
 	int size = ft_lstsize(*a);
 	count = start;
 	mid = ((end - start + 1) / 2 ) + start;
@@ -150,17 +150,21 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 	{
 		if (i == x)
 		{
-			end = size;
+			end = size - 1;
 			sort_chunk(a, b, start, end);
 			return ;
 		}
 		else
 		{
-			end = (size / x) * i - 1;
-			if (end == 1 || end == 0){
-				end = 5;
+			int j;
+			int k = size / x;
+			j = i;
+			if (k == 1 && i == 1)
+			{	
+				k = 5;
 				i = x - 1;
 			}
+			end = k * j - 1;
 			sort_chunk(a, b, start, end);
 			start = ++end;
 		}
@@ -209,13 +213,99 @@ int	find_before_max(t_stack *b)
 	return (i);
 }
 
-// int	is_less_instractions(t_stack *b)
-// {
+int	is_less_instractions(int max, int before_max, int size)
+{
+	// t_stack	*tmp;
+	int mid;
+	int i = 0;
+	int	j = 0;
+
+	mid = size / 2;
+	// if (max > mid && before_max <= mid)
+	// {
+	// 	i = size - max;
+	// 	j = before_max;
 	
-// }
+	// }
+	// else if (max > mid && before_max > mid)
+	// {
+	// 	i = size - max;
+	// 	j = size - before_max;
+	// }
+	// else if (max < mid && before_max >= mid)
+	// {
+	// 	i = max;
+	// 	j = size - before_max;	
+	// }
+	// else if (max < mid && before_max < mid)
+	// {
+	// 	i = max;
+	// 	j = before_max;
+	// }
+	// else if (max == mid && before_max < mid)
+	// {
+	// 	i =  max;
+	// 	j = before_max;
+	// }
+	// else if (max == mid && before_max > mid)
+	// {
+	// 	i = max;
+	// 	j = size - before_max;
+	// }
+	printf("max |%d|, be max |%d|\n", max, before_max);
+	if (max <= mid)
+	{
+		if (before_max > mid)
+		{
+			i =  max;
+			j = size - before_max;
+		}
+		else 
+			return (max < before_max);
+	}
+	else if (max > mid)
+	{
+		if (before_max <= mid)
+		{
+			i = size - max;
+			j = before_max;
+		}
+		else 
+			return (max > before_max);
+	}
+	// printf("|i = %d||j = %d|\n", i , j);
+	return(i <= j);
+}
+
+void	to_push(int nbr, t_stack **b, t_stack **a)
+{
+	printf("|i = %d||j = %d|\n", nbr, ft_lstsize(*b) / 2);
+	if (nbr > ft_lstsize(*b) / 2)
+	{
+		while (nbr++ < ft_lstsize(*b))
+			reverse_rotate(b, "rrb\n");
+	}
+	else
+	{
+		while (nbr--)
+			rotate(b, "rb\n");
+	}
+	push(b, a, "pa\n");
+}
 
 void	push_back(t_stack **b, t_stack **a)
 {
+
+	t_stack	*tmp;
+	tmp = *b;
+
+	while (tmp)
+	{
+		printf("%d\n", tmp->num);
+		tmp = tmp->next;
+
+	}
+	
 	int	max;
 	int	before_max;
 	int	size;
@@ -226,48 +316,30 @@ void	push_back(t_stack **b, t_stack **a)
 		before_max = find_before_max(*b);
 		size = ft_lstsize(*b);
 
-		//check which number needs fewer instractions to be pushed
-		if (max <= size - before_max)
-		{
-		
-		// printf("max :%d, b max : %d\n", max, before_max);
-			if (max > ft_lstsize(*b) / 2)
-			{
-				while (max++ < ft_lstsize(*b))
-					reverse_rotate(b, "rrb\n");
-			}
-			else
-			{
-				while (max--)
-					rotate(b, "rb\n");
-			}
-			push(b, a, "pa\n");
+		//check which number needs fewer instractions to be pushed (max or before max)
+		if (is_less_instractions(max, before_max, size))
+		{	
+			//check if be max needs less instractions.
+			//i : number of instructions needed to put the max at the top.
+			//j : number of instructions needed to put the before_max at the top.
+
+			to_push(max, b, a);
+			// if (max > ft_lstsize(*b) / 2)
+			// {
+			// 	while (max++ < ft_lstsize(*b))
+			// 		reverse_rotate(b, "rrb\n");
+			// }
+			// else
+			// {
+			// 	while (max--)
+			// 		rotate(b, "rb\n");
+			// }
+			// push(b, a, "pa\n");
 		}
 		else
 		{
-			if (before_max > ft_lstsize(*b) / 2)
-			{
-				while (before_max++ < ft_lstsize(*b))
-					reverse_rotate(b, "rrb\n");
-			}
-			else
-			{
-				while (before_max--)
-					rotate(b, "rb\n");
-			}
-			push(b, a, "pa\n");
-
-			if (max > ft_lstsize(*b) / 2)
-			{
-				while (max++ < ft_lstsize(*b))
-					reverse_rotate(b, "rrb\n");
-			}
-			else
-			{
-				while (max--)
-					rotate(b, "rb\n");
-			}
-			push(b, a, "pa\n");
+			to_push(before_max, b, a);
+			to_push(max, b, a);
 			swap(*a, "sa\n");
 		}
 	}
@@ -301,6 +373,7 @@ void	sort(t_stack **a, t_stack **b, int size)
 		if (!sorted(*a))
 		{
 			ft_chunk(a, b, 5, size);
+			puts("pushing back \n");
 			push_back(b, a);
 		}
 	}

@@ -272,16 +272,16 @@ int	main(int ac, char **av)
 	// 	tmp = tmp->next;
 
 	// }
-	// while(a)
-	// {
-	// 	printf("%d\n", a->num);
-	// 	a = a->next;
+	while(a)
+	{
+		printf("%d\n", a->num);
+		a = a->next;
 
-	// }
+	}
 	// // puts("\n");
-	// while (b)
-	// {
-	// 	printf("%d\n", b->num);
-	// 	b = b->next;	
-	// }
+	while (b)
+	{
+		printf("%d\n", b->num);
+		b = b->next;	
+	}
 }
