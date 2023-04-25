@@ -102,6 +102,8 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 	int		mid;
 	int		count;
 
+			// printf("end : %d, start : %d\n", end ,  start);
+	int size = ft_lstsize(*a);
 	count = start;
 	mid = ((end - start + 1) / 2 ) + start;
 	while (count <= end)
@@ -109,8 +111,13 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 		if (*a)
 		{
 			// if ((*a))
-			while ((*a)->index < start || (*a)->index > end)
-				rotate(a, "ra\n");
+			// printf("|%d|\n", (*a)->index);
+			if (start <= size)
+				while ((*a)->index < start || (*a)->index > end)
+					rotate(a, "ra\n");
+			else if ( start > size)
+				while ((*a)->index < start || (*a)->index > end)
+					reverse_rotate(a, "rra\n");
 			if ((*a)->index >= start || (*a)->index <= end)
 			{
 				if (!*b)
@@ -150,6 +157,10 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 		else
 		{
 			end = (size / x) * i - 1;
+			if (end == 1 || end == 0){
+				end = 5;
+				i = x - 1;
+			}
 			sort_chunk(a, b, start, end);
 			start = ++end;
 		}
@@ -206,32 +217,65 @@ int	find_before_max(t_stack *b)
 void	push_back(t_stack **b, t_stack **a)
 {
 	int	max;
-	// int	before_max;
-	// int	i;
+	int	before_max;
+	int	size;
 
 	while (*b)
 	{
 		max = find_max(*b);
-		// before_max = find_before_max(*b);
-		// i = ft_lstsize(*b);
-		// printf("max :%d, b max : %d\n", max, before_max);
-		if (max > ft_lstsize(*b) / 2)
+		before_max = find_before_max(*b);
+		size = ft_lstsize(*b);
+
+		//check which number needs fewer instractions to be pushed
+		if (max <= size - before_max)
 		{
-			while (max++ < ft_lstsize(*b))
-				reverse_rotate(b, "rrb\n");
+		
+		// printf("max :%d, b max : %d\n", max, before_max);
+			if (max > ft_lstsize(*b) / 2)
+			{
+				while (max++ < ft_lstsize(*b))
+					reverse_rotate(b, "rrb\n");
+			}
+			else
+			{
+				while (max--)
+					rotate(b, "rb\n");
+			}
+			push(b, a, "pa\n");
 		}
 		else
 		{
-			while (max--)
-				rotate(b, "rb\n");
+			if (before_max > ft_lstsize(*b) / 2)
+			{
+				while (before_max++ < ft_lstsize(*b))
+					reverse_rotate(b, "rrb\n");
+			}
+			else
+			{
+				while (before_max--)
+					rotate(b, "rb\n");
+			}
+			push(b, a, "pa\n");
+
+			if (max > ft_lstsize(*b) / 2)
+			{
+				while (max++ < ft_lstsize(*b))
+					reverse_rotate(b, "rrb\n");
+			}
+			else
+			{
+				while (max--)
+					rotate(b, "rb\n");
+			}
+			push(b, a, "pa\n");
+			swap(*a, "sa\n");
 		}
-		push(b, a, "pb\n");
 	}
 }
 
 void	sort(t_stack **a, t_stack **b, int size)
 {
-	int	i;
+	// int	i;
 
 	if (size <= 5)
 	{

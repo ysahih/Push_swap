@@ -39,7 +39,7 @@ char	*join_args(int ac, char **av)
 
 void	Error()
 {
-	printf("Error\n");
+	write(2, "Error\n", 6);
 	exit (0);
 }
 
@@ -83,7 +83,7 @@ int Formed(char **l)
 int	extra_check(char **l)
 {
 	int i = 0;
-	int j;
+	// int j;
 	while (l[i])
 	{
 		if (ft_strlen(l[i]) == 1 && (l[i][0] == '-' || l[i][0] == '+'))
@@ -129,7 +129,7 @@ int	no_empty_args(int ac, char **av)
 }
 char **get_info(int ac, char **av)
 {
-	int	i;
+	// int	i;
 	char *str;
 	char **l;
 	
@@ -167,7 +167,7 @@ int	ft_atoi(char *str)
 	return (res);
 }
 
-int	valid_ellements(int ac, char **av, char **l)
+int	valid_ellements(int ac, char **l)
 {
 	if (ac > 1)
 	{
@@ -218,7 +218,7 @@ t_stack	*str_to_lst(char **l)
 {
 	t_stack *lst;
 	int		i;
-	int		j;
+	// int		j;
 
 	lst = NULL;
 	i = 0;
@@ -244,7 +244,7 @@ t_stack	*store_up(int ac, int *size, char **av)
 	t_stack *a;
 
 	l = get_info(ac, av);
-	valid_ellements(ac, av, l);
+	valid_ellements(ac, l);
 	a = str_to_lst(l);
 	if (!a)
 		return (0);
@@ -258,6 +258,8 @@ int	main(int ac, char **av)
 	t_stack *a;
 	t_stack	*b;
 
+	if (ac < 2)
+		exit (0);
 	b = NULL;
 	a = store_up(ac, &size, av);
 	sort(&a,&b, size);
@@ -270,12 +272,12 @@ int	main(int ac, char **av)
 	// 	tmp = tmp->next;
 
 	// }
-	while(a)
-	{
-		printf("%d\n", a->num);
-		a = a->next;
+	// while(a)
+	// {
+	// 	printf("%d\n", a->num);
+	// 	a = a->next;
 
-	}
+	// }
 	// // puts("\n");
 	// while (b)
 	// {
