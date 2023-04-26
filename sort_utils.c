@@ -57,11 +57,11 @@ void sort_three(t_stack **a)
 
 	i = find_max(*a);
 	if (i == 0)
-		rotate(a, "ra\n");
+		rotate(a, "ra\n", true);
 	if (i == 1)
-		reverse_rotate(a, "rra\n");
+		reverse_rotate(a, "rra\n", true);
 	if ((*a)->num > (*a)->next->num)
-		swap(*a, "sa\n");
+		swap(*a, "sa\n", true);
 	else
 		return ;
 }
@@ -77,7 +77,7 @@ void	sort_five(t_stack **a, t_stack **b)
 		{
 			while (i > 0)
 			{
-				rotate(a, "ra\n");
+				rotate(a, "ra\n", true);
 				i--;
 			}
 		}
@@ -85,16 +85,16 @@ void	sort_five(t_stack **a, t_stack **b)
 		{
 			while (i < ft_lstsize(*a))
 			{
-				reverse_rotate(a, "rra\n");
+				reverse_rotate(a, "rra\n", true);
 				i++;
 			}
 		}
-		push(a, b, "pb\n");
+		push(a, b, "pb\n", true);
 		sort_five(a, b);
 	}
 	sort_three(a);
 	while (*b)
-		push(b, a, "pa\n");
+		push(b, a, "pa\n", true);
 }
 
 void	push_elmnt(t_stack **a, t_stack **b, int start, int end)
@@ -105,15 +105,15 @@ void	push_elmnt(t_stack **a, t_stack **b, int start, int end)
 	if ((*a)->index >= start || (*a)->index <= end)
 			{
 				if (!*b)
-					push(a, b, "pb\n");
+					push(a, b, "pb\n", true);
 				else
 				{
 					if ((*a)->index < mid)
-						push(a, b, "pb\n");
+						push(a, b, "pb\n", true);
 					else
 					{
-						push(a, b, "pb\n");
-						rotate(b, "rb\n");
+						push(a, b, "pb\n", true);
+						rotate(b, "rb\n", true);
 					}
 				}
 			}
@@ -131,7 +131,7 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 		if (*a)
 		{
 			while ((*a)->index < start || (*a)->index > end)
-				rotate(a, "ra\n");
+				rotate(a, "ra\n", true);
 			push_elmnt(a, b, start, end);
 		}
 		count++;
@@ -252,14 +252,14 @@ void	to_push(int nbr, t_stack **b, t_stack **a)
 	if (nbr > ft_lstsize(*b) / 2)
 	{
 		while (nbr++ < ft_lstsize(*b))
-			reverse_rotate(b, "rrb\n");
+			reverse_rotate(b, "rrb\n", true);
 	}
 	else
 	{
 		while (nbr--)
-			rotate(b, "rb\n");
+			rotate(b, "rb\n", true);
 	}
-	push(b, a, "pa\n");
+	push(b, a, "pa\n", true);
 }
 
 void	push_back(t_stack **b, t_stack **a)
@@ -282,7 +282,7 @@ void	push_back(t_stack **b, t_stack **a)
 			to_push(before_max, b, a);
 			max = find_max(*b);
 			to_push(max, b, a);
-			swap(*a, "sa\n");
+			swap(*a, "sa\n", true);
 		}
 	}
 }
@@ -298,7 +298,7 @@ void	sort(t_stack **a, t_stack **b, int size)
 			else if (size == 2)
 			{
 				if ((*a)->num > (*a)->next->num)
-					swap(*a, "sa\n");
+					swap(*a, "sa\n", true);
 				else
 					return ;
 			}
