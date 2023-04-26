@@ -14,7 +14,6 @@ int	find_max(t_stack *a)
 			max = lst->num;
 		lst = lst->next;
 	}
-	// printf("max [%d]\n", max);
 	lst = a;
 	while (lst)
 	{
@@ -125,25 +124,14 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 	int		mid;
 	int		count;
 
-	// printf("end : %d, start : %d\n", end ,  start); fflush(stdout);
-	// int size = ft_lstsize(*a);
 	count = start;
-	// count--;
 	mid = ((end - start + 1) / 2 ) + start;
-	// printf("mid = %d\n", mid); fflush(stdout);
 	while (count <= end)
 	{
 		if (*a)
 		{
-			// if ((*a))
-			// printf("|%d|\n", (*a)->index);
-			// if ((*a)->index <= size / 2)
 			while ((*a)->index < start || (*a)->index > end)
 				rotate(a, "ra\n");
-			// else 
-			// // if ( (*a)->index > size / 2)
-				// while ((*a)->index < start || (*a)->index > end)
-					// reverse_rotate(a, "rra\n");
 			push_elmnt(a, b, start, end);
 		}
 		count++;
@@ -158,7 +146,6 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 
 	i = 1;
 	start = 0;
-	// printf("size : %d\n" , size);
 	if (size < 10)
 		x = 2;
 	while (i <= x)
@@ -166,15 +153,12 @@ void	ft_chunk(t_stack **a, t_stack **b, int x, int size)
 		if (i == x)
 		{
 			end = size - 1;
-			// printf("(last chunk) : end : %d, start : %d\n", end ,  start);
 			sort_chunk(a, b, start, end);
-			// return ;
 		}
 		else
 		{
 			end = size / x * i - 1;
 			sort_chunk(a, b, start, end);
-			// printf("end : %d, start : %d\n", end ,  start);
 			start = ++end;
 		}
 		i++;
@@ -232,44 +216,12 @@ int	find_before_max(t_stack *b)
 
 int	is_less_instractions(int max, int before_max, int size)
 {
-	// t_stack	*tmp;
+	
 	int mid;
 	int i = 0;
 	int	j = 0;
 
 	mid = size / 2;
-	// if (max > mid && before_max <= mid)
-	// {
-	// 	i = size - max;
-	// 	j = before_max;
-	
-	// }
-	// else if (max > mid && before_max > mid)
-	// {
-	// 	i = size - max;
-	// 	j = size - before_max;
-	// }
-	// else if (max < mid && before_max >= mid)
-	// {
-	// 	i = max;
-	// 	j = size - before_max;	
-	// }
-	// else if (max < mid && before_max < mid)
-	// {
-	// 	i = max;
-	// 	j = before_max;
-	// }
-	// else if (max == mid && before_max < mid)
-	// {
-	// 	i =  max;
-	// 	j = before_max;
-	// }
-	// else if (max == mid && before_max > mid)
-	// {
-	// 	i = max;
-	// 	j = size - before_max;
-	// }
-	// printf("max |%d|, be max |%d|\n", max, before_max);
 	if (max <= mid)
 	{
 		if (before_max > mid)
@@ -278,9 +230,7 @@ int	is_less_instractions(int max, int before_max, int size)
 			j = size - before_max;
 		}
 		else
-		{
 				return (max < before_max);
-		}
 	}
 	else
 	{
@@ -292,13 +242,13 @@ int	is_less_instractions(int max, int before_max, int size)
 		else 
 			return (max > before_max);
 	}
-	// printf("|i = %d||j = %d|\n", i , j);
+	//i : number of instructions needed to put the max at the top.
+	//j : number of instructions needed to put the before_max at the top.
 	return(i <= j);
 }
 
 void	to_push(int nbr, t_stack **b, t_stack **a)
 {
-	// printf("|i = %d||j = %d|\n", nbr, ft_lstsize(*b) / 2);
 	if (nbr > ft_lstsize(*b) / 2)
 	{
 		while (nbr++ < ft_lstsize(*b))
@@ -310,31 +260,10 @@ void	to_push(int nbr, t_stack **b, t_stack **a)
 			rotate(b, "rb\n");
 	}
 	push(b, a, "pa\n");
-	// t_stack *tmp = *b;
-
-	// 	puts("-----");
-	// while (tmp)
-	// {
-	// 	printf("%d\n", tmp->num);
-	// 	tmp = tmp->next;
-	// }
-	// 	puts("-----");
 }
 
 void	push_back(t_stack **b, t_stack **a)
 {
-
-	t_stack	*tmp;
-	// tmp = *b;
-
-	// while (tmp)
-	// {
-	// 	printf("%d\n", tmp->num);
-	// 	tmp = tmp->next;
-
-	// }
-	
-	// write (1, "\nline\n", 6);
 	int	max;
 	int	before_max;
 	int	size;
@@ -344,49 +273,15 @@ void	push_back(t_stack **b, t_stack **a)
 		max = find_max(*b);
 		before_max = find_before_max(*b);
 		size = ft_lstsize(*b);
-		tmp = *b;
-		// while (tmp)
-		// {
-		// 	printf("%d\n", tmp->num);
-		// 	tmp = tmp->next;
-
-		// }
-	
-	// write (1, "\nline\n", 6);
-	// 	printf("max |%d|\n", max);
-	// 	printf(" before max |%d|\n", before_max);
+		
 		//check which number needs fewer instractions to be pushed (max or before max)
-		if (is_less_instractions(max, before_max, size))
-		{	
-			
-			//check if be max needs less instractions.
-			//i : number of instructions needed to put the max at the top.
-			//j : number of instructions needed to put the before_max at the top.
-
+		if (is_less_instractions(max, before_max, size))	
 			to_push(max, b, a);
-			// max = find_max(*b);
-			// before_max = find_before_max(*b);
-			// to_push(before_max, b, a);
-			// if (max > ft_lstsize(*b) / 2)
-			// {
-			// 	while (max++ < ft_lstsize(*b))
-			// 		reverse_rotate(b, "rrb\n");
-			// }
-			// else
-			// {
-			// 	while (max--)
-			// 		rotate(b, "rb\n");
-			}
-			// push(b, a, "pa\n");
-		// }
 		else
 		{
 			to_push(before_max, b, a);
 			max = find_max(*b);
-		// before_max = find_before_max(*b);
 			to_push(max, b, a);
-			// write(1, "hi\n",3);
-			// if (())
 			swap(*a, "sa\n");
 		}
 	}
@@ -394,8 +289,6 @@ void	push_back(t_stack **b, t_stack **a)
 
 void	sort(t_stack **a, t_stack **b, int size)
 {
-	// int	i;
-
 	if (size <= 5)
 	{
 		if (size <= 3)
@@ -423,7 +316,6 @@ void	sort(t_stack **a, t_stack **b, int size)
 				ft_chunk(a, b, 4, size);
 			else
 				ft_chunk(a, b, 9, size);
-			// write(1, " \n", 2);
 			push_back(b, a);
 		}
 	}
