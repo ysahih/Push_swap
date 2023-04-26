@@ -103,7 +103,7 @@ void	sort_chunk(t_stack **a, t_stack **b, int start, int end)
 	int		count;
 
 	// printf("end : %d, start : %d\n", end ,  start); fflush(stdout);
-	int size = ft_lstsize(*a);
+	// int size = ft_lstsize(*a);
 	count = start;
 	// count--;
 	mid = ((end - start + 1) / 2 ) + start;
