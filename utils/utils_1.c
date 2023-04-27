@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 17:10:41 by ysahih            #+#    #+#             */
+/*   Updated: 2023/04/27 17:46:17 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
-void ft_free(char **s)
+void	ft_free(char **s)
 {
 	int	i;
 
@@ -20,7 +32,7 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-int	ft_strcmp(char *s1,char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	size_t	i;
 
@@ -30,7 +42,7 @@ int	ft_strcmp(char *s1,char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void	Error()
+void	ft_error(void)
 {
 	write(2, "Error\n", 6);
 	exit (0);
@@ -58,6 +70,6 @@ int	ft_atoi(char *str)
 		res = res * 10 + str[i++] - '0';
 	res *= sign;
 	if (res < INT32_MIN || res > INT32_MAX)
-		return (Error(), 0);
+		return (ft_error(), 0);
 	return (res);
 }

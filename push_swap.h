@@ -1,11 +1,11 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
-
 typedef struct s_stack
 {
 	int				index;
@@ -13,15 +13,11 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
-
-
-
-
 //parssing utils
 t_stack	*store_up(int ac, int *size, char **av);
 int		extra_check(char **l);
-int 	Formed(char **l);
-int		Digit(char *s);
+int 	is_formed(char **l);
+int		is_digit(char *s);
 char	*join_args(int ac, char **av);
 int		calculate_size(int ac, char **av);
 
@@ -31,8 +27,6 @@ int		is_duplicate(char **l);
 int		valid_ellements(int ac, char **l);
 t_stack	*store_up(int ac, int *size, char **av);
 t_stack	*str_to_lst(char **l);
-
-
 
 //lst_utils
 void	ft_lstadd_back(t_stack **lst, t_stack *new);
@@ -60,7 +54,6 @@ int		is_less_instractions(int max, int before_max, int size);
 void	to_push(int nbr, t_stack **b, t_stack **a);
 void	push_back(t_stack **b, t_stack **a);
 
-
 //utils
 char	*ft_strncpy(char *s, char *s2, int len);
 char	**ft_split(char *str);
@@ -68,7 +61,7 @@ void	ft_free(char **s);
 int		ft_strlen(char *s);
 int		count_len(char *str);
 int		ft_strcmp(char *s1,char *s2);
-void	Error();
+void	ft_error();
 int		ft_atoi(char *str);
 
 void	set_index(t_stack **lst);

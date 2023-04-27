@@ -1,34 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 17:41:43 by ysahih            #+#    #+#             */
+/*   Updated: 2023/04/27 17:41:44 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
-
-// void ft_free(char **s)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (s[++i])
-// 		free (s[i]);
-// 	free (s);
-// }
-
-// int	ft_strlen(char *s)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i[s])
-// 		i++;
-// 	return (i);
-// }
-
-// int	ft_strcmp(char *s1,char *s2)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (s1[i] == s2[i] && (s1[i] != '\0' || s2[i] != '\0'))
-// 		i++;
-// 	return (s1[i] - s2[i]);
-// }
 
 int	sorted(t_stack *a)
 {
@@ -57,7 +39,7 @@ char	*ft_strncpy(char *s, char *s2, int len)
 		i++;
 	}
 	s[len] = '\0';
-	return s;
+	return (s);
 }
 
 int	count_len(char *str)
@@ -73,7 +55,7 @@ int	count_len(char *str)
 			i++;
 		if (str[i])
 			count++;
-		while ( str[i] && str[i] != ' ')
+		while (str[i] && str[i] != ' ')
 			i++;
 	}
 	return (++count);
@@ -96,7 +78,7 @@ char	**ft_split(char *str)
 		while (str[i] && str[i] == ' ')
 			i++;
 		a = i;
-		while ( str[i] && str[i] != ' ')
+		while (str[i] && str[i] != ' ')
 			i++;
 		if (i > a)
 			s[j++] = ft_strncpy(malloc (i - a + 1), str + a, i - a);

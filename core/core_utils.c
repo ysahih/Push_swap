@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 16:45:08 by ysahih            #+#    #+#             */
+/*   Updated: 2023/04/27 17:25:45 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
-int find_min(t_stack *a)
+int	find_min(t_stack *a)
 {
 	int		min;
 	int		i;
@@ -23,15 +35,16 @@ int find_min(t_stack *a)
 		tmp = tmp->next;
 		i++;
 	}
-	return i;
+	return (i);
 }
 
 int	find_max(t_stack *a)
 {
-	int	max;
-	int i = 0;
-	t_stack *lst;
+	int		max;
+	int		i;
+	t_stack	*lst;
 
+	i = 0;
 	lst = a;
 	max = lst->num;
 	while (lst)
@@ -51,23 +64,30 @@ int	find_max(t_stack *a)
 	return (i);
 }
 
+void	init(t_stack *b, int *max, int *before_max)
+{
+	t_stack	*lst;
+
+	lst = b;
+	*max = lst->num;
+	while (lst)
+	{
+		if (*max < lst->num)
+			*max = lst->num;
+		lst = lst->next;
+	}
+	*before_max = -2147483648;
+}
+
 int	find_before_max(t_stack *b)
 {
 	t_stack	*lst;
-	int	    max;
+	int		max;
 	int		before_max;
 	int		i;
 
 	lst = b;
-	max = lst->num;
-	while (lst)
-	{
-		if (max < lst->num)
-			max = lst->num;
-		lst = lst->next;
-	}
-	lst = b;
-	before_max = -2147483648;
+	init(b, &max, &before_max);
 	while (lst)
 	{
 		if (before_max < lst->num && lst->num != max)

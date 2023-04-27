@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 17:08:50 by ysahih            #+#    #+#             */
+/*   Updated: 2023/04/27 17:43:19 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 int	calculate_size(int ac, char **av)
@@ -14,6 +26,7 @@ int	calculate_size(int ac, char **av)
 	}
 	return (size);
 }
+
 char	*join_args(int ac, char **av)
 {
 	int		i;
@@ -22,12 +35,14 @@ char	*join_args(int ac, char **av)
 	char	*str;
 
 	str = malloc(calculate_size(ac, av));
+	if (!str)
+		return (0);
 	i = 1;
 	k = 0;
 	while (i < ac)
 	{
 		j = 0;
-		while(av[i][j])
+		while (av[i][j])
 			str[k++] = av[i][j++];
 		if (av[i + 1])
 			str[k++] = ' ';
@@ -37,34 +52,31 @@ char	*join_args(int ac, char **av)
 	return (str);
 }
 
-// void	Error()
-// {
-// 	write(2, "Error\n", 6);
-// 	exit (0);
-// }
-
-
-int	Digit(char *s)
+int	is_digit(char *s)
 {
 	int	i;
-	int flag = 1;
+	int	flag;
 
+	flag = 1;
 	i = 0;
 	while (s[i])
 	{
-		if (!(s[i] >= '0' && s[i] <= '9') && s[i] != ' ' && s[i] != '-' && s[i] != '+')
-			flag = 0;
+		if (!(s[i] >= '0' && s[i] <= '9') && s[i] != ' '
+			&& s[i] != '-' && s[i] != '+')
+				flag = 0;
 		i++;
 	}
 	if (!flag)
-		return (Error(), 0);
+		return (ft_error(), 0);
 	return (1);
 }
 
-int Formed(char **l)
+int	is_formed(char **l)
 {
-	int i = 0;
+	int	i;
 	int	j;
+
+	i = 0;
 	while (l[i])
 	{
 		j = 0;
@@ -82,7 +94,9 @@ int Formed(char **l)
 
 int	extra_check(char **l)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (l[i])
 	{
 		if (ft_strlen(l[i]) == 1 && (l[i][0] == '-' || l[i][0] == '+'))

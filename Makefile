@@ -31,7 +31,7 @@ RM = rm -rf
 CC = cc
 OBJS = $(SRCS:%.c=%.o)
 B_OBJS = $(B_SRCS:%.c=%.o)
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 

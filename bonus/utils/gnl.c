@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gnl.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 16:35:55 by ysahih            #+#    #+#             */
+/*   Updated: 2023/04/27 17:19:20 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../push_swap.h"
 
 char	*get_ret(char *s)
@@ -11,6 +23,8 @@ char	*get_ret(char *s)
 	while (s[i])
 		i++;
 	ret = malloc(i + 1);
+	if (!ret)
+		return (0);
 	while (s[++j])
 		ret[j] = s[j];
 	ret[j] = 0;
@@ -33,6 +47,8 @@ char	*new_str(char *s, char c)
 	else
 	{
 		ret = malloc (i + 2);
+		if (!ret)
+			return (0);
 		while (s[++j])
 			ret[j] = s[j];
 		ret[i++] = c;
