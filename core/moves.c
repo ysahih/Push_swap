@@ -6,7 +6,7 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 16:46:49 by ysahih            #+#    #+#             */
-/*   Updated: 2023/04/27 18:13:40 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/04/27 19:34:46 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,11 @@
 //Take the first element at the top of stack a and put it at the top of stack b.
 void	push(t_stack **stack_a, t_stack **stack_b, char *s, bool flag)
 {
-	// t_stack	*tmp;
-
 	if (!stack_a || !*stack_a)
 		return ;
 	ft_lstadd_front(stack_b, (*stack_a)->num, (*stack_a)->index);
-	// tmp = 
-	free(*stack_a); 
+	free(*stack_a);
 	*stack_a = (*stack_a)->next;
-	// = tmp;
-	// free(tmp);
 	if (flag)
 		write(1, s, 3);
 }

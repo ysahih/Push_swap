@@ -6,7 +6,7 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:04:25 by ysahih            #+#    #+#             */
-/*   Updated: 2023/04/27 18:15:06 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/04/27 19:35:04 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	sort_five(t_stack **a, t_stack **b)
 	sort_three(a);
 	while (*b)
 		push(b, a, "pa\n", true);
-	// free(b);
 }
 
 void	sort(t_stack **a, t_stack **b, int size)
@@ -64,8 +63,6 @@ void	sort(t_stack **a, t_stack **b, int size)
 				sort_three(a);
 		}
 		sort_five(a, b);
-		// system("leaks push_swap");
-		// exit(1);
 	}
 	else
 	{
