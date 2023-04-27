@@ -275,8 +275,8 @@ void	push_back(t_stack **b, t_stack **a)
 		max = find_max(*b);
 		before_max = find_before_max(*b);
 		size = ft_lstsize(*b);
-		
-		//check which number needs fewer instractions to be pushed (max or before max)
+		//after finding the position of (max and before max) ->
+		//check which one needs fewer instractions to be pushed
 		if (is_less_instractions(max, before_max, size))	
 			to_push(max, b, a);
 		else
